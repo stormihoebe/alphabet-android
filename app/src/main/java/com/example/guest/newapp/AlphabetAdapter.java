@@ -1,6 +1,7 @@
 package com.example.guest.newapp;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 public class AlphabetAdapter extends BaseAdapter{
     private Context mContext;
     private String[] mLetters;
+    private Typeface mTypeface;
 
 
-    public AlphabetAdapter (Context context, String[] letters) {
+    public AlphabetAdapter (Context context, String[] letters, Typeface typeface) {
+        this.mTypeface = typeface;
         this.mContext = context;
         this.mLetters = letters;
     }
@@ -45,7 +48,6 @@ public class AlphabetAdapter extends BaseAdapter{
         View gridView;
 
         if (convertView == null) {
-            String letter = (String) this.getItem(position);
             // get layout from xml file
             gridView = inflater.inflate(R.layout.alphabet_grid_item, null);
 
@@ -55,7 +57,8 @@ public class AlphabetAdapter extends BaseAdapter{
                     .findViewById(R.id.grid_item_letter);
 
             // set values into views
-            letterView.setText(letter);
+            letterView.setText(mLetters[position]);
+            letterView.setTypeface(mTypeface);
         } else {
             gridView = (View) convertView;
         }
